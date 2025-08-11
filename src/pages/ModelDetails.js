@@ -256,8 +256,8 @@ const ModelDetails = () => {
                   <p>
                     {mostrarCompleto
                       ? data?.about
-                      : data?.about.slice(0, 150) + (data?.about.length > 150 ? "..." : "")}
-                    {data?.about.length > 150 && (
+                      : (data?.about ? data.about.slice(0, 150) + (data.about.length > 150 ? "..." : "") : "")}
+                    {data?.about && data.about.length > 150 && (
                       <button
                         className="btn btn-link p-0 ps-1 pb-1 m-0 border-0 text-decoration-none"
                         style={{
