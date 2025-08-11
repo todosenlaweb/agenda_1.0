@@ -5,6 +5,7 @@ import LoginModal from "./LoginModal";
 import SignUpModal from "./SignUpModal";
 import { getCookie } from "../utils/cookies";
 import LogOutModal from "./LogOutModal";
+import {useUser} from "../context/UserContext";
 
 const Header = () => {
     const [showOptionsMenu, setShowOptionsMenu] = useState(false);
@@ -24,6 +25,8 @@ const Header = () => {
     const toggleSignUpModal = ()=> {    
         setSignUpModal(!signUpModal);
     }
+
+    const { userRole } = useUser();
     
     return (
         <>
@@ -67,9 +70,16 @@ const Header = () => {
                                             <button className="btn general-btn mt-2 w-100" type="button" onClick={toggleLogOutModal}>
                                                 Cerrar Sesión
                                             </button>
-                                            <button className="btn general-btn mt-2 w-100" type="button" onClick={()=>{navigate("modeldashboard");}}>
-                                                Modificar Perfil
-                                            </button>
+                                                {userRole === "Admin" ? (<>
+                                                    <button className="btn general-btn mt-2 w-100" type="button" onClick={()=>{navigate("/admindashboard");}}>
+                                                        Administrar Perfiles
+                                                    </button>
+                                                </>) : (<>
+                                                    <button className="btn general-btn mt-2 w-100" type="button" onClick={()=>{navigate("/modeldashboard");}}>
+                                                        Modificar Perfil
+                                                    </button>
+                                                </>)}
+
                                         </>) 
                                         : 
                                         (<>

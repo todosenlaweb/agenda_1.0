@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+const MEDIA_BASE_URL = process.env.REACT_APP_MEDIA_BASE_URL;
 
 const Article = ({ id, name, description, image }) => {
 
     const navigate = useNavigate();
+    const [modelImage, setModelImage] = useState();
+    useEffect(() => {
+        setModelImage(image ? MEDIA_BASE_URL + image : "https://www.w3schools.com/howto/img_avatar.png");
+    }, [image]);
 
     const handleArticleClick = (id, name) => {
     navigate(`/model/${id}`, { state: { name, id } });
@@ -14,7 +19,7 @@ const Article = ({ id, name, description, image }) => {
             style={styles.imageContainer}
             onClick={() => handleArticleClick(id, name)}
             >
-                <img src={image} alt={name} style={styles.image} />
+                <img src={modelImage} alt={name} style={styles.image} />
                 <div style={styles.overlay}>
                     <h3 style={styles.title}>{name}</h3>
                     <p style={styles.description}>{description}</p>

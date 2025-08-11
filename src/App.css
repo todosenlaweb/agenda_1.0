@@ -28,6 +28,28 @@
   color: #61dafb;
 }
 
+.alert-glass {
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.alert-glass-success {
+  border: 2px solid rgba(40, 167, 69, 0.2);
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #16832f;
+}
+
+.pre-line {
+  white-space: pre-line;
+}
+
+.alert-glass-danger {
+  border: 2px solid rgba(220, 53, 69, 0.2);
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #9e1723;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -95,6 +117,7 @@ body {
 .general-link{
   color: var(--special-color);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .input-tag{

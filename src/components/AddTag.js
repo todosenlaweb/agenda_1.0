@@ -34,7 +34,6 @@ const AddTag = ({token, tagTipo, setError, modelToSearchId, handleGetPerson}) =>
           }
     
           const result = await response.json();
-          console.log(result);
           handleGetPerson();
           
         } catch (error) {

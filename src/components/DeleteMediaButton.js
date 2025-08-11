@@ -19,7 +19,6 @@ const DeleteMediaButton = ({setError, token, media, handleGetPerson}) => {
             }
     
             const result = await response.json();
-            console.log(result);
             handleGetPerson();
             } catch (error) {
                 setError(error.message);

@@ -19,7 +19,6 @@ const DeleteTagButton = ({setError, token, tag, handleGetPerson}) => {
             }
     
             const result = await response.json();
-            console.log(result);
             handleGetPerson();
             } catch (error) {
                 setError(error.message);

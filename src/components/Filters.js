@@ -1,22 +1,46 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DistanceSlider from "./DistanceSlider";
 
-const Filters = ({ setFilters, zones}) => {
-
-    const possibleCategory = ["dama", "virtual", "trans", "caballero"];
+const Filters = ({ setFilters, zones, cities }) => {
+    const possibleCategories = [
+        "Dama",
+        "Virtual",
+        "Dama Virtual",
+        "Trans",
+        "Trans Virtual",
+        "Caballero de Compañia",
+        "Caballero Virtual",
+        "Masajista",
+    ];
 
     const [searchName, setSearchName] = useState("");
     const [selectedZone, setSelectedZone] = useState("");
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [activeFilter, setActiveFilter] = useState(null);
+    const [selectedCity, setSelectedCity] = useState(""); // Nuevo estado para la ciudad
     const [distance, setDistance] = useState(0);
     const buttonRefs = {
         name: useRef(null),
         zone: useRef(null),
+        city: useRef(null), // Referencia para el botón de ciudad
         category: useRef(null),
     };
 
+    // Sync selectedCategories with filters state
+    useEffect(() => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            categories: selectedCategories,
+        }));
+    }, [selectedCategories, setFilters]);
 
+    // Sync selectedCity with filters state
+    useEffect(() => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            city: selectedCity,
+        }));
+    }, [selectedCity, setFilters]);
 
     const handleSearchChange = (e) => {
         setSearchName(e.target.value);
@@ -40,19 +64,23 @@ const Filters = ({ setFilters, zones}) => {
             const newCategories = prev.includes(value)
                 ? prev.filter((cat) => cat !== value)
                 : [...prev, value];
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                categories: newCategories,
-            }));
             return newCategories;
         });
     };
 
+    const handleCityChange = (e) => {
+        setSelectedCity(e.target.value);
+        setFilters((prev) => ({
+            ...prev,
+            city: e.target.value,
+        }));
+    };
+
     const handleFilterToggle = (filterName) => {
         if (activeFilter === filterName) {
-            setActiveFilter(null); 
+            setActiveFilter(null);
         } else {
-            setActiveFilter(filterName); 
+            setActiveFilter(filterName);
         }
     };
 
@@ -62,7 +90,7 @@ const Filters = ({ setFilters, zones}) => {
             const rect = button.getBoundingClientRect();
             return {
                 top: rect.bottom + window.scrollY,
-                left: rect.left + window.scrollX, 
+                left: rect.left + window.scrollX,
             };
         }
         return { top: 0, left: 0 };
@@ -74,7 +102,17 @@ const Filters = ({ setFilters, zones}) => {
             ...prevFilters,
             distance: distance,
         }));
-    }
+    };
+
+    useEffect(() => {
+        // Aquí pones la función o el código que quieres ejecutar
+        console.log('El valor de distance ha cambiado a:', distance);
+        ejecutarFuncionCuandoCambieDistance(distance);
+    }, [distance]);
+
+    const ejecutarFuncionCuandoCambieDistance = (nuevoValorDistance) => {
+        console.log('Se está ejecutando la función porque distance cambió a:', nuevoValorDistance);
+    };
 
     return (
         <div className="container mt-4">
@@ -83,9 +121,10 @@ const Filters = ({ setFilters, zones}) => {
                     ref={buttonRefs.name}
                     className="btn me-2"
                     type="button"
-                    style={{ width: "auto" ,
+                    style={{
+                        width: "auto",
                         backgroundColor: "var(--special-background-color)",
-                        color: "var(--special-color)"
+                        color: "var(--special-color)",
                     }}
                     onClick={() => handleFilterToggle("name")}
                 >
@@ -96,10 +135,11 @@ const Filters = ({ setFilters, zones}) => {
                     ref={buttonRefs.zone}
                     className="btn me-2"
                     type="button"
-                    style={{ width: "auto" ,
+                    style={{
+                        width: "auto",
                         backgroundColor: "var(--special-background-color)",
-                        color: "var(--special-color)"
-                     }}
+                        color: "var(--special-color)",
+                    }}
                     onClick={() => handleFilterToggle("zone")}
                 >
                     Zona
@@ -109,15 +149,29 @@ const Filters = ({ setFilters, zones}) => {
                     ref={buttonRefs.category}
                     className="btn me-2"
                     type="button"
-                    style={{ width: "auto" ,
+                    style={{
+                        width: "auto",
                         backgroundColor: "var(--special-background-color)",
-                        color: "var(--special-color)"
-                     }}
+                        color: "var(--special-color)",
+                    }}
                     onClick={() => handleFilterToggle("category")}
                 >
                     Categoría
                 </button>
 
+                <button
+                    ref={buttonRefs.city} // Referencia para el botón de ciudad
+                    className="btn me-2"
+                    type="button"
+                    style={{
+                        width: "auto",
+                        backgroundColor: "var(--special-background-color)",
+                        color: "var(--special-color)",
+                    }}
+                    onClick={() => handleFilterToggle("city")}
+                >
+                    Ciudad
+                </button>
                 <DistanceSlider value={distance} onChange={handleFilterDistance} />
             </div>
 
@@ -134,8 +188,7 @@ const Filters = ({ setFilters, zones}) => {
                     <input
                         type="text"
                         className="t-0 model-tag rounded-4 p-1 m-2"
-                        style={{borderColor: "var(--tag-color)",
-                        }}
+                        style={{ borderColor: "var(--tag-color)" }}
                         value={searchName}
                         onChange={handleSearchChange}
                     />
@@ -154,7 +207,7 @@ const Filters = ({ setFilters, zones}) => {
                 >
                     <select
                         className="form-select model-tag"
-                        style={{borderColor: "var(--tag-color)"}}
+                        style={{ borderColor: "var(--tag-color)" }}
                         value={selectedZone}
                         onChange={handleZoneChange}
                     >
@@ -177,11 +230,11 @@ const Filters = ({ setFilters, zones}) => {
                         left: `${getFilterPosition("category").left}px`,
                     }}
                 >
-                    {possibleCategory.map((category, index) => (
-                        <div key={index} className="form-check">
+                    {possibleCategories.map((category) => (
+                        <div key={category} className="form-check">
                             <input
                                 className="form-check-input model-tag"
-                                style={{borderColor: "var(--tag-color)"}}
+                                style={{ borderColor: "var(--tag-color)" }}
                                 type="checkbox"
                                 value={category}
                                 onChange={handleCategoryChange}
@@ -190,6 +243,28 @@ const Filters = ({ setFilters, zones}) => {
                             <label className="form-check-label">{category}</label>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {activeFilter === "city" && (
+                <div
+                    className="position-absolute mt-2 p-3 model-tag rounded shadow"
+                    style={{
+                        zIndex: 1050,
+                        top: `${getFilterPosition("city").top}px`,
+                        left: `${getFilterPosition("city").left}px`,
+                    }}
+                >
+                    <select
+                        className="form-select model-tag"
+                        style={{ borderColor: "var(--tag-color)" }}
+                        value={selectedCity}
+                        onChange={handleCityChange}
+                    >
+                        <option value="">Todas las ciudades</option>
+                        {/* Render options from the 'cities' prop */}
+                        {cities.map((city) => (<option key={city} value={city}>{city}</option>))}
+                    </select>
                 </div>
             )}
         </div>

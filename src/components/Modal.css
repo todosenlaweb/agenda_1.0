@@ -12,7 +12,8 @@ body.active-base-modal {
 }
 
 .base-overlay {
-    background: rgba(49,49,49,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
 }
 .base-modal-content {
     position: absolute;
@@ -21,9 +22,11 @@ body.active-base-modal {
     transform: translate(-50%, -50%);
     line-height: 1.4;
     background: var(--tag-bg-color);
-    padding: 14px 28px;
-    border-radius: 3px;
+    padding: 30px;
+    border-radius: 12px;
     max-width: 600px;
+    width: 90%;
     min-width: 300px;
     z-index: 10;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }

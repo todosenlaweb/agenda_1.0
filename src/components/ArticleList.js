@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Article from "./Article";
-const MEDIA_BASE_URL = process.env.REACT_APP_MEDIA_BASE_URL;
 
 
 const ArticleList = ({ quality, articles }) => {
+
     return (
         <section id={`calidad-${quality}`} className="my-5">
             <div className="container">
@@ -14,10 +14,9 @@ const ArticleList = ({ quality, articles }) => {
                         <div className="mb-4 d-inline-flex" key={index}>
                             <Article
                                 id={article.id}
-                                name={article.nombre}
-                                description={article.mapa}
-                                
-                                image={MEDIA_BASE_URL + article?.media[0]?.file_path}
+                                name={article.tags.find((tag) => tag.tipo === "nombre")?.valor}
+                                description={article.tags.find((tag) => tag.tipo === "country")?.valor + " - "+article.tags.find((tag) => tag.tipo === "ciudad")?.valor}
+                                image={article?.media[0]?.file_path}
                             />
                         </div>
                     ))}
