@@ -70,7 +70,7 @@ const Header = () => {
                                             <button className="btn general-btn mt-2 w-100" type="button" onClick={toggleLogOutModal}>
                                                 Cerrar Sesión
                                             </button>
-                                                {userRole === "Admin" ? (<>
+                                                {(userRole === "Admin" || userRole === "Assistant") ? (<>
                                                     <button className="btn general-btn mt-2 w-100" type="button" onClick={()=>{navigate("/admindashboard");}}>
                                                         Administrar Perfiles
                                                     </button>

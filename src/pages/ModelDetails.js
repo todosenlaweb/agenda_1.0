@@ -307,6 +307,8 @@ const ModelDetails = () => {
           <div className="d-flex justify-content-center mt-3">
             <button className="btn general-btn" onClick={() => setSubscriptionModalOpen(true)}>Agregar Suscripcion</button>
           </div>
+        </>)}
+        {(userRole === "Admin" || userRole === "Assistant") && (<>
           <div className="d-flex justify-content-center mt-3">
             <button className="btn general-btn" onClick={() => navigate(`/modeldashboard/${data.id}`)}>Modificar Perfil</button>
           </div>
