@@ -98,7 +98,7 @@ const Galeria = ({ items, userId }) => {
         if (!deleteTarget) return;
         const token = getCookie("token")
         const endpointType = deleteTarget.type === "image" ? "image" : "video";
-        const url = `https://back.agenda.peryloth.com/api/upload/${endpointType}/${deleteTarget.id}`;
+        const url = `${API_BASE_URL}upload/${endpointType}/${deleteTarget.id}`;
 
         try {
             const res = await fetch(url, {
