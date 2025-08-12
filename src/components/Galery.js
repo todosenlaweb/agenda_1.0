@@ -229,7 +229,7 @@ const Galeria = ({ items, userId }) => {
                             )}
                         </div>
                     ))}
-                    {userRole === "Admin" || userRole === "Assistant" && (
+                    {(userRole === "Admin" || userRole === "Assistant") && (
                         <>
                             <input
                                 type="file"
