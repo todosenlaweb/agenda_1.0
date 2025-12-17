@@ -2,9 +2,6 @@ name: Deploy React App via FTP
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - deploy
 
 jobs:
   build-and-deploy:
