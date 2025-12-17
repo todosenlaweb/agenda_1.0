@@ -1,7 +1,16 @@
 name: Deploy React App
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - dev
+          - production
   pull_request:
     branches:
       - deploy
@@ -9,7 +18,7 @@ on:
 jobs:
   export-and-deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     outputs:
       artifact_url: ${{ steps.generate_artifact.outputs.artifact_url }}
     steps:
@@ -56,7 +65,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     needs: export-and-deploy
     steps:
 
