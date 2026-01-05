@@ -1,4 +1,4 @@
-﻿import MapSection from "./MapSection";
+import MapSection from "./MapSection";
 import React, {useEffect, useState} from "react";
 import {getCountries} from "@yusifaliyevpro/countries";
 import citiesData from "../../cities.json";

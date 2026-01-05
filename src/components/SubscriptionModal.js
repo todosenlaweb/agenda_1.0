@@ -1,4 +1,4 @@
-﻿import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import BaseModal from "./BaseModal";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";

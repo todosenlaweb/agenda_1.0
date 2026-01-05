@@ -1,4 +1,4 @@
-﻿import DashboardDropDown from "./DashboardDropDown";
+import DashboardDropDown from "./DashboardDropDown";
 import InteractiveMap from "../InteractiveMap";
 import {useEffect} from "react";
 

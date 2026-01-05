@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import BaseModal from "./BaseModal";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";

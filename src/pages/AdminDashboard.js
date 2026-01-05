@@ -1,4 +1,4 @@
-﻿import Header from "../components/Header";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import React, {useEffect, useState} from "react";
 import {getCookie} from "../utils/cookies";
